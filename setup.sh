@@ -60,7 +60,7 @@ fi
 echo "增加计划任务"
 
 CRON_TASK="自动关机"
-if ! crontab -l | grep -q "${CRON_TASK}"; then
+if ! $(crontab -l | grep -q "${CRON_TASK}"); then
   echo "添加任务${CRON_TASK}"
   (crontab -l ; echo "") | crontab -
   (crontab -l ; echo "# ${CRON_TASK}") | crontab -
@@ -70,7 +70,7 @@ else
 fi
 
 CRON_TASK="自动更新系统"
-if ! crontab -l | grep -q "${CRON_TASK}"; then
+if ! $(crontab -l | grep -q "${CRON_TASK}"); then
   echo "添加任务${CRON_TASK}"
   (crontab -l ; echo "") | crontab -
   (crontab -l ; echo "# ${CRON_TASK}") | crontab -
@@ -80,7 +80,7 @@ else
 fi
 
 CRON_TASK="清理Docker日志"
-if ! crontab -l | grep -q "${CRON_TASK}"; then
+if ! $(crontab -l | grep -q "${CRON_TASK}"); then
   echo "添加任务${CRON_TASK}"
   (crontab -l ; echo "") | crontab -
   (crontab -l ; echo "# ${CRON_TASK}") | crontab -
@@ -90,7 +90,7 @@ else
 fi
 
 CRON_TASK="清理Docker"
-if ! crontab -l | grep -q "${CRON_TASK}"; then
+if ! $(crontab -l | grep -q "${CRON_TASK}"); then
   echo "添加任务${CRON_TASK}"
   (crontab -l ; echo "") | crontab -
   (crontab -l ; echo "# ${CRON_TASK}") | crontab -
