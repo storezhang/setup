@@ -60,7 +60,7 @@ fi
 echo "增加计划任务"
 
 CRON_TASK="自动关机"
-if crontab -l | grep "${CRON_TASK}"; then
+if crontab -l | grep -q "${CRON_TASK}"; then
   echo "任务${CRON_TASK}已存在"
 else
   echo "添加任务${CRON_TASK}"
@@ -70,7 +70,7 @@ else
 fi
 
 CRON_TASK="自动更新系统"
-if crontab -l | grep "${CRON_TASK}"; then
+if crontab -l | grep -q "${CRON_TASK}"; then
   echo "任务${CRON_TASK}已存在"
 else
   echo "添加任务${CRON_TASK}"
@@ -80,7 +80,7 @@ else
 fi
 
 CRON_TASK="清理Docker日志"
-if crontab -l | grep "${CRON_TASK}"; then
+if crontab -l | grep -q "${CRON_TASK}"; then
   echo "任务${CRON_TASK}已存在"
 else
   echo "添加任务${CRON_TASK}"
@@ -89,8 +89,8 @@ else
   (crontab -l ; echo "30	09	*	*	1	docker ps | awk '{if (NR>1){print $1}}' | xargs docker inspect --format='{{.LogPath}}' | xargs truncate -s 0") | crontab -
 fi
 
-CRON_TASK="清理Docker"
-if crontab -l | grep "${CRON_TASK}"; then
+CRON_TASK="清理Docker所有容器和镜像以及卷"
+if crontab -l | grep -q "${CRON_TASK}"; then
   echo "任务${CRON_TASK}已存在"
 else
   echo "添加任务${CRON_TASK}"
