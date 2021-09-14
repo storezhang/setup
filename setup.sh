@@ -8,7 +8,7 @@ sudo -i
 
 # 判断用户是否存在
 if id "${USERNAME}" >/dev/null 2>&1; then
-    echo "用户存在，继续执行"
+    echo "用户已存在，继续执行"
 else
     echo "用户不存在，添加用户，请输入用户信息"
     adduser --uid 1026 ${USERNAME}
@@ -22,8 +22,8 @@ fi
 
 
 echo "更新源"
-apt update
-apt upgrade
+apt update -y
+apt upgrade -y
 
 
 DOCKER_APP="docker.io"
@@ -65,6 +65,8 @@ if ! crontab -l | grep -q "${CRON_TASK}"; then
   (crontab -l ; echo "") | crontab -
   (crontab -l ; echo "# ${CRON_TASK}") | crontab -
   (crontab -l ; echo "59	00	*	*	*	/sbin/shutdown -h now") | crontab -
+else
+  echo "任务${CRON_TASK}已存在"
 fi
 
 CRON_TASK="自动更新系统"
@@ -73,6 +75,8 @@ if ! crontab -l | grep -q "${CRON_TASK}"; then
   (crontab -l ; echo "") | crontab -
   (crontab -l ; echo "# ${CRON_TASK}") | crontab -
   (crontab -l ; echo "00	09	*	*	*	apt update -y && apt upgrade -y") | crontab -
+else
+  echo "任务${CRON_TASK}已存在"
 fi
 
 CRON_TASK="清理Docker日志"
@@ -81,6 +85,8 @@ if ! crontab -l | grep -q "${CRON_TASK}"; then
   (crontab -l ; echo "") | crontab -
   (crontab -l ; echo "# ${CRON_TASK}") | crontab -
   (crontab -l ; echo "30	09	*	*	1	docker ps | awk '{if (NR>1){print $1}}' | xargs docker inspect --format='{{.LogPath}}' | xargs truncate -s 0") | crontab -
+else
+  echo "任务${CRON_TASK}已存在"
 fi
 
 CRON_TASK="清理Docker"
@@ -89,6 +95,8 @@ if ! crontab -l | grep -q "${CRON_TASK}"; then
   (crontab -l ; echo "") | crontab -
   (crontab -l ; echo "# ${CRON_TASK}") | crontab -
   (crontab -l ; echo "30	08	*	*	*	docker system prune --all --force --volumes") | crontab -
+else
+  echo "任务${CRON_TASK}已存在"
 fi
 
 
