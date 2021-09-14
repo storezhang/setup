@@ -60,43 +60,43 @@ fi
 echo "增加计划任务"
 
 CRON_TASK="自动关机"
-if ! $(crontab -l | grep -q "${CRON_TASK}"); then
+if crontab -l | grep -q "${CRON_TASK}"; then
+  echo "任务${CRON_TASK}已存在"
+else
   echo "添加任务${CRON_TASK}"
   (crontab -l ; echo "") | crontab -
   (crontab -l ; echo "# ${CRON_TASK}") | crontab -
   (crontab -l ; echo "59	00	*	*	*	/sbin/shutdown -h now") | crontab -
-else
-  echo "任务${CRON_TASK}已存在"
 fi
 
 CRON_TASK="自动更新系统"
-if ! $(crontab -l | grep -q "${CRON_TASK}"); then
+if crontab -l | grep -q "${CRON_TASK}"; then
+  echo "任务${CRON_TASK}已存在"
+else
   echo "添加任务${CRON_TASK}"
   (crontab -l ; echo "") | crontab -
   (crontab -l ; echo "# ${CRON_TASK}") | crontab -
   (crontab -l ; echo "00	09	*	*	*	apt update -y && apt upgrade -y") | crontab -
-else
-  echo "任务${CRON_TASK}已存在"
 fi
 
 CRON_TASK="清理Docker日志"
-if ! $(crontab -l | grep -q "${CRON_TASK}"); then
+if crontab -l | grep -q "${CRON_TASK}"; then
+  echo "任务${CRON_TASK}已存在"
+else
   echo "添加任务${CRON_TASK}"
   (crontab -l ; echo "") | crontab -
   (crontab -l ; echo "# ${CRON_TASK}") | crontab -
   (crontab -l ; echo "30	09	*	*	1	docker ps | awk '{if (NR>1){print $1}}' | xargs docker inspect --format='{{.LogPath}}' | xargs truncate -s 0") | crontab -
-else
-  echo "任务${CRON_TASK}已存在"
 fi
 
 CRON_TASK="清理Docker"
-if ! $(crontab -l | grep -q "${CRON_TASK}"); then
+if crontab -l | grep -q "${CRON_TASK}"; then
+  echo "任务${CRON_TASK}已存在"
+else
   echo "添加任务${CRON_TASK}"
   (crontab -l ; echo "") | crontab -
   (crontab -l ; echo "# ${CRON_TASK}") | crontab -
   (crontab -l ; echo "30	08	*	*	*	docker system prune --all --force --volumes") | crontab -
-else
-  echo "任务${CRON_TASK}已存在"
 fi
 
 
