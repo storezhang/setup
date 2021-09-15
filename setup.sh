@@ -38,9 +38,9 @@ else
   echo "写入镜像地址"
   cat>/etc/docker/daemon.json<<EOF
 {
-  "registry-mirrors": [
-    "https://docker.mirrors.ustc.edu.cn"
-  ]
+	"registry-mirrors": [
+		"https://docker.mirrors.ustc.edu.cn"
+	]
 }
 EOF
 fi
