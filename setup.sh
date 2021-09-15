@@ -31,6 +31,7 @@ if ! apt list | grep -q "${DOCKER_APP}"; then
   echo "安装Docker"
   apt install ${DOCKER_APP}
   usermod -aG docker ${USERNAME}
+  systemctl enable docker
 
   echo "写入镜像地址"
   cat>/etc/docker/daemon.json<<EOF
