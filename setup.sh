@@ -18,7 +18,7 @@ else
 fi
 
 
-echo "更新源"
+echo "更新软件源"
 apt update -y
 apt upgrade -y
 
