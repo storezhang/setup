@@ -57,6 +57,9 @@ if dpkg -l | grep -qw ${SNAP_APP}; then
   rm -rf /snap
   rm -rf /var/snap
   rm -rf /var/lib/snapd
+
+  # 清理包
+  apt autoremove -y
 else
   echo "系统没有安装Snap，不需要删除"
 fi
@@ -109,4 +112,3 @@ if [ "${NEED_LOGOUT}" = true ] ; then
   echo "注销当前Shell，使配置生效"
   logout
 fi
-logout
