@@ -26,12 +26,11 @@ apt update -y
 apt upgrade -y
 
 
-DOCKER_APP="docker.io"
-if apt list | grep -q "${DOCKER_APP}"; then
+if command -v docker &> /dev/null; then
   echo "系统已经安装Docker，继续执行"
 else
   echo "安装Docker"
-  apt install ${DOCKER_APP}
+  apt install docker.io
   usermod -aG docker ${USERNAME}
   systemctl enable docker
 
@@ -46,15 +45,14 @@ EOF
 fi
 
 
-SNAP_APP="snapd"
-if apt list | grep -q "${SNAP_APP}"; then
+if command -v snap &> /dev/null; then
   echo "系统没有安装Snap，不需要删除"
 else
   echo "完全删除Snap"
   snap remove --purge "$(snap list | awk '!/^Name|^core/ {print $1}')"
   umount /var/snap
   systemctl stop snapd
-  apt remove --purge --assume-yes ${SNAP_APP} gnome-software-plugin-snap
+  apt remove --purge --assume-yes snapd gnome-software-plugin-snap
   rm -rf ~/snap
   rm -rf /snap
   rm -rf /var/snap
