@@ -31,7 +31,7 @@ if dpkg -l | grep -qw ${DOCKER_APP}; then
   echo "系统已经安装Docker，继续执行"
 else
   echo "安装Docker"
-  apt install ${DOCKER_APP}
+  apt install -y ${DOCKER_APP}
   usermod -aG docker ${USERNAME}
   systemctl enable docker
 
@@ -54,7 +54,7 @@ else
   snap remove --purge "$(snap list | awk '!/^Name|^core/ {print $1}')"
   umount /var/snap
   systemctl stop snapd
-  apt remove --purge --assume-yes ${SNAP_APP} gnome-software-plugin-snap
+  apt remove --purge --assume-yes -y ${SNAP_APP} gnome-software-plugin-snap
   rm -rf ~/snap
   rm -rf /snap
   rm -rf /var/snap
