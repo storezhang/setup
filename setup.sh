@@ -48,8 +48,6 @@ fi
 
 SNAP_APP="snapd"
 if dpkg -l | grep -qw ${SNAP_APP}; then
-  echo "系统没有安装Snap，不需要删除"
-else
   echo "完全删除Snap"
   snap remove --purge "$(snap list | awk '!/^Name|^core/ {print $1}')"
   umount /var/snap
@@ -59,6 +57,8 @@ else
   rm -rf /snap
   rm -rf /var/snap
   rm -rf /var/lib/snapd
+else
+  echo "系统没有安装Snap，不需要删除"
 fi
 
 
