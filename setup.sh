@@ -15,9 +15,6 @@ else
 
     echo "将用户添加到Sudo组"
     usermod -aG sudo ${USERNAME}
-
-    # 需要重启使docker命令立即生效
-    NEED_LOGOUT=true
 fi
 
 
@@ -43,6 +40,9 @@ else
 	]
 }
 EOF
+
+  # 需要重启使docker命令立即生效
+  NEED_LOGOUT=true
 fi
 
 
