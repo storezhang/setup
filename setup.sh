@@ -58,7 +58,7 @@ Type=notify
 # exists and systemd currently does not support the cgroup feature set required
 # for containers run by docker
 ExecStart=/usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock
-ExecStartPre=/bin/sleep 1m
+ExecStartPre=/bin/sleep 15s
 ExecReload=/bin/kill -s HUP $MAINPID
 TimeoutSec=0
 RestartSec=2
@@ -140,6 +140,16 @@ else
   (crontab -l ; echo "") | crontab -
   (crontab -l ; echo "# ${CRON_TASK}") | crontab -
   (crontab -l ; echo "00	09	*	*	*	apt update -y && apt upgrade -y") | crontab -
+fi
+
+CRON_TASK="自动清理系统"
+if crontab -l | grep -q "${CRON_TASK}"; then
+  echo "任务${CRON_TASK}已存在"
+else
+  echo "添加任务${CRON_TASK}"
+  (crontab -l ; echo "") | crontab -
+  (crontab -l ; echo "# ${CRON_TASK}") | crontab -
+  (crontab -l ; echo "00	09	*	*	*	apt autoremove -y && apt purge -y") | crontab -
 fi
 
 CRON_TASK="清理Docker日志"
