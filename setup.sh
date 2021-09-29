@@ -105,7 +105,7 @@ else
   echo "添加任务${CRON_TASK}"
   (crontab -l ; echo "") | crontab -
   (crontab -l ; echo "# ${CRON_TASK}") | crontab -
-  (crontab -l ; echo "*/1	*	*	*	*	docker start \\$(docker ps --all --quiet --filter status=exited)") | crontab -
+  (crontab -l ; echo "*/1	*	*	*	*	docker start \$\(docker ps --all --quiet --filter status=exited\)") | crontab -
 fi
 
 CRON_TASK="清理Docker日志"
