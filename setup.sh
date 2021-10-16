@@ -23,6 +23,22 @@ apt update -y
 apt upgrade -y
 
 
+# 安装NFS客户端
+NFS_APP="nfs-common"
+if dpkg -l | grep -qw ${NFS_APP}; then
+  echo "系统已经安装NFS客户端，继续执行"
+else
+  apt install -y ${NFS_APP}
+fi
+# 安装SAMBA客户端
+SAMBA_APP="cifs-utils"
+if dpkg -l | grep -qw ${SAMBA_APP}; then
+  echo "系统已经安装SAMBA客户端，继续执行"
+else
+  apt install -y ${SAMBA_APP}
+fi
+
+
 DOCKER_APP="docker.io"
 if dpkg -l | grep -qw ${DOCKER_APP}; then
   echo "系统已经安装Docker，继续执行"
