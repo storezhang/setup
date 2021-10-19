@@ -141,7 +141,7 @@ else
   echo "添加任务${CRON_TASK}"
   (crontab -l ; echo "") | crontab -
   (crontab -l ; echo "# ${CRON_TASK}") | crontab -
-  (crontab -l ; echo "30	08	*	*	*	docker system prune --all --force --volumes") | crontab -
+  (crontab -l ; echo "30	08	*	*	6	docker system prune --all --force --volumes") | crontab -
 fi
 
 
