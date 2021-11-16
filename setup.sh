@@ -101,7 +101,7 @@ else
   echo "添加任务${CRON_TASK}"
   (crontab -l ; echo "") | crontab -
   (crontab -l ; echo "# ${CRON_TASK}") | crontab -
-  (crontab -l ; echo "00	09	*	*	*	apt update -y && apt upgrade -y") | crontab -
+  (crontab -l ; echo "00	09	*	*	*	apt update -y && --configure -a && --apt upgrade -y") | crontab -
 fi
 
 CRON_TASK="自动清理系统"
