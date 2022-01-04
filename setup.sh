@@ -52,7 +52,11 @@ else
   cat>/etc/docker/daemon.json<<EOF
 {
 	"registry-mirrors": [
-		"https://docker.mirrors.ustc.edu.cn"
+		"https://4lch7u25.mirror.aliyuncs.com",
+		"https://docker.mirrors.ustc.edu.cn",
+		"https://registry.docker-cn.com",
+		"https://docker.mirrors.ustc.edu.cn",
+		"http://hub-mirror.c.163.com"
 	]
 }
 
