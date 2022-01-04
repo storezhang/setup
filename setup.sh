@@ -55,7 +55,6 @@ else
 		"https://4lch7u25.mirror.aliyuncs.com",
 		"https://docker.mirrors.ustc.edu.cn",
 		"https://registry.docker-cn.com",
-		"https://docker.mirrors.ustc.edu.cn",
 		"https://hub-mirror.c.163.com"
 	]
 }
