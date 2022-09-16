@@ -148,6 +148,27 @@ else
 fi
 
 
+echo "屏幕1分钟如无使用自动关闭"
+cat>/etc/systemd/system/enable-console-blanking.service<<EOF
+[Unit]
+Description=Enable virtual console blanking
+
+[Service]
+Type=oneshot
+Environment=TERM=linux
+StandardOutput=tty
+TTYPath=/dev/console
+ExecStart=/usr/bin/setterm -blank 1
+
+[Install]
+WantedBy=multi-user.target
+
+EOF
+chmod 664 /etc/systemd/system/enable-console-blanking.service
+systemctl enable enable-console-blanking.service
+
+
+echo "注销"
 if [ "${NEED_LOGOUT}" = true ] ; then
   echo "注销当前Shell，使配置生效"
   logout
