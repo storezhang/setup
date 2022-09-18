@@ -150,9 +150,9 @@ fi
 
 echo "屏幕3分钟如无使用自动关闭"
 blankingFile=/etc/systemd/system/enable-console-blanking.service
-if [ ! -f ${blankingFile} ]; then
-  touch ${blankingFile}
-  cat>${blankingFile}<<EOF
+if [ ! -f "${blankingFile}" ]; then
+  touch "${blankingFile}"
+  cat>"${blankingFile}"<<EOF
 [Unit]
 Description=Enable virtual console blanking
 
@@ -168,7 +168,7 @@ WantedBy=multi-user.target
 
 EOF
 
-  chmod 664 ${blankingFile}
+  chmod 664 "${blankingFile}"
   systemctl enable enable-console-blanking.service
 fi
 
