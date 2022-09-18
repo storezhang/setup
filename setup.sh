@@ -165,6 +165,7 @@ ExecStart=/usr/bin/setterm -blank 3
 
 [Install]
 WantedBy=multi-user.target
+
 EOF
 
   chmod 664 "${blankingFile}"
