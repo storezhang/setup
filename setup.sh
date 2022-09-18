@@ -8,13 +8,13 @@ sudo -i
 
 # 判断用户是否存在
 if id "${USERNAME}" >/dev/null 2>&1; then
-    echo "用户已存在，继续执行"
+  echo "用户已存在，继续执行"
 else
-    echo "用户不存在，添加用户，请输入用户信息"
-    adduser --uid 1026 ${USERNAME}
+  echo "用户不存在，添加用户，请输入用户信息"
+  adduser --uid 1026 ${USERNAME}
 
-    echo "将用户添加到Sudo组"
-    usermod -aG sudo ${USERNAME}
+  echo "将用户添加到Sudo组"
+  usermod -aG sudo ${USERNAME}
 fi
 
 
