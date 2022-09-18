@@ -150,22 +150,23 @@ fi
 
 echo "屏幕3分钟如无使用自动关闭"
 blankingFile=/etc/systemd/system/enable-console-blanking.service
-if [ ! -f "${dbConfigFile}" ]; then
+if [ ! -f "${blankingFile}" ]; then
   cat>blankingFile<<EOF
-  [Unit]
-  Description=Enable virtual console blanking
+[Unit]
+Description=Enable virtual console blanking
 
-  [Service]
-  Type=oneshot
-  Environment=TERM=linux
-  StandardOutput=tty
-  TTYPath=/dev/console
-  ExecStart=/usr/bin/setterm -blank 3
+[Service]
+Type=oneshot
+Environment=TERM=linux
+StandardOutput=tty
+TTYPath=/dev/console
+ExecStart=/usr/bin/setterm -blank 3
 
-  [Install]
-  WantedBy=multi-user.target
+[Install]
+WantedBy=multi-user.target
 
-  EOF
+EOF
+
   chmod 664 /etc/systemd/system/enable-console-blanking.service
   systemctl enable enable-console-blanking.service
 fi
