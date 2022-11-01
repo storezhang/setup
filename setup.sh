@@ -17,6 +17,52 @@ else
   usermod -aG sudo ${USERNAME}
 fi
 
+echo "创建命令快捷方式"
+profile=/etc/profile
+command="升级系统"
+if grep -Fxq ${command} ${profile}; then
+  echo ${command}快捷命令已存在
+else
+  cat>${profile}<<EOF
+
+# ${command}
+alias upgrade=sudo apt update -y && sudo apt upgrade -y
+EOF
+fi
+
+command="安装软件"
+if grep -Fxq ${command} ${profile}; then
+  echo ${command}快捷命令已存在
+else
+  cat>${profile}<<EOF
+
+# ${command}
+alias install=sudo apt install -y
+EOF
+fi
+
+command="查看Docker日志"
+if grep -Fxq ${command} ${profile}; then
+  echo ${command}快捷命令已存在
+else
+  cat>${profile}<<EOF
+
+# ${command}
+alias dl=sudo docker logs -f
+EOF
+fi
+
+command="连接Docker容器"
+if grep -Fxq ${command} ${profile}; then
+  echo ${command}快捷命令已存在
+else
+  cat>${profile}<<EOF
+
+# ${command}
+alias di=di_script(){ sudo docker exec -it $1 /bin/bash; };di_script
+EOF
+fi
+
 
 echo "更新软件源"
 apt update -y
