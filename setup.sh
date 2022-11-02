@@ -69,11 +69,11 @@ fi
 
 
 echo "开始更新软件源"
-apt update -y -qq
+apt update -y > /dev/null
 echo "软件源更新成功"
 
 echo "开始升级系统"
-apt upgrade -y -qq
+apt upgrade -y > /dev/null
 echo "系统升级成功"
 
 
