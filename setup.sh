@@ -1,10 +1,10 @@
 #!/bin/bash
 
-USERNAME=storezhang
-NEED_LOGOUT=false
-
 # 取得Root权限
 sudo -i
+
+USERNAME=storezhang
+NEED_LOGOUT=false
 
 # 判断用户是否存在
 USER_EXISTS=$(grep -c "^${USERNAME}:" /etc/passwd)
