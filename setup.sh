@@ -20,7 +20,7 @@ fi
 echo "创建命令快捷方式"
 profile="/etc/profile"
 command="升级系统"
-if grep -Fxq ${command} ${profile}; then
+if grep -q ${command} "${profile}"; then
   echo "${command}快捷命令已存在"
 else
   echo "增加${command}的快捷方式"
@@ -32,7 +32,7 @@ EOF
 fi
 
 command="安装软件"
-if grep -Fxq ${command} ${profile}; then
+if grep -q ${command} "${profile}"; then
   echo "${command}快捷命令已存在"
 else
   echo "增加${command}的快捷方式"
@@ -44,7 +44,7 @@ EOF
 fi
 
 command="查看Docker日志"
-if grep -Fxq ${command} ${profile}; then
+if grep -q ${command} "${profile}"; then
   echo "${command}快捷命令已存在"
 else
   echo "增加${command}的快捷方式"
@@ -56,7 +56,7 @@ EOF
 fi
 
 command="连接Docker容器"
-if grep -Fxq ${command} ${profile}; then
+if grep -q ${command} "${profile}"; then
   echo "${command}快捷命令已存在"
 else
   echo "增加${command}的快捷方式"
