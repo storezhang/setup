@@ -1,6 +1,6 @@
 #!/bin/bash
 
-USERNAME="storezhang"
+USERNAME=storezhang
 NEED_LOGOUT=false
 
 # 取得Root权限
