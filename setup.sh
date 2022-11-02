@@ -20,13 +20,61 @@ fi
 echo "创建命令快捷方式"
 PROFILE="/etc/profile"
 SHORTCUT="升级系统"
-grep -q ${SHORTCUT} "${PROFILE}"
+if grep -q ${SHORTCUT} "${PROFILE}"; then
+  echo "${SHORTCUT}快捷命令已存在"
+else
+  echo "增加${SHORTCUT}的快捷方式"
+  cat <<EOF >> "${PROFILE}"
+
+# ${SHORTCUT}
+alias upgrade="sudo apt update -y && sudo apt upgrade -y"
+EOF
+fi
+
+SHORTCUT="安装软件"
+if grep -q ${SHORTCUT} "${PROFILE}"; then
+  echo "${SHORTCUT}快捷命令已存在"
+else
+  echo "增加${SHORTCUT}的快捷方式"
+  cat <<EOF >> "${PROFILE}"
+
+# ${SHORTCUT}
+alias install="sudo apt install -y"
+EOF
+fi
+
+SHORTCUT="查看Docker日志"
+if grep -q ${SHORTCUT} "${PROFILE}"; then
+  echo "${SHORTCUT}快捷命令已存在"
+else
+  echo "增加${SHORTCUT}的快捷方式"
+  cat <<EOF >> "${PROFILE}"
+
+# ${SHORTCUT}
+alias dl="sudo docker logs -f"
+EOF
+fi
+
+SHORTCUT="连接Docker容器"
+if grep -q ${SHORTCUT} "${PROFILE}"; then
+  echo "${SHORTCUT}快捷命令已存在"
+else
+  echo "增加${SHORTCUT}的快捷方式"
+  cat <<EOF >> "${PROFILE}"
+
+# ${SHORTCUT}
+alias di="di_script(){ sudo docker exec -it $1 /bin/bash; };di_script"
+EOF
+fi
 
 
+echo "开始更新软件源"
+apt update -y -qq
+echo "软件源更新成功"
 
-echo "更新软件源"
-apt update -y
-apt upgrade -y
+echo "开始升级系统"
+apt upgrade -y -qq
+echo "系统升级成功"
 
 
 # 安装NFS客户端
