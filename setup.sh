@@ -24,7 +24,7 @@ if grep -q ${SHORTCUT} "${PROFILE}"; then
   echo "${SHORTCUT}快捷命令已存在"
 else
   echo "增加${SHORTCUT}的快捷方式"
-  cat <<EOF >> ${PROFILE}
+  cat <<EOF >> "${PROFILE}"
 
 # ${SHORTCUT}
 alias upgrade="sudo apt update -y && sudo apt upgrade -y"
@@ -36,7 +36,7 @@ if grep -q ${SHORTCUT} "${PROFILE}"; then
   echo "${SHORTCUT}快捷命令已存在"
 else
   echo "增加${SHORTCUT}的快捷方式"
-  cat <<EOF >> ${PROFILE}
+  cat <<EOF >> "${PROFILE}"
 
 # ${SHORTCUT}
 alias install="sudo apt install -y"
@@ -48,7 +48,7 @@ if grep -q ${SHORTCUT} "${PROFILE}"; then
   echo "${SHORTCUT}快捷命令已存在"
 else
   echo "增加${SHORTCUT}的快捷方式"
-  cat <<EOF >> ${PROFILE}
+  cat <<EOF >> "${PROFILE}"
 
 # ${SHORTCUT}
 alias dl="sudo docker logs -f"
@@ -60,7 +60,7 @@ if grep -q ${SHORTCUT} "${PROFILE}"; then
   echo "${SHORTCUT}快捷命令已存在"
 else
   echo "增加${SHORTCUT}的快捷方式"
-  cat <<EOF >> ${PROFILE}
+  cat <<EOF >> "${PROFILE}"
 
 # ${SHORTCUT}
 alias di="di_script(){ sudo docker exec -it $1 /bin/bash; };di_script"
