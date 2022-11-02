@@ -8,7 +8,6 @@ NEED_LOGOUT=false
 
 # 判断用户是否存在
 USER_EXISTS=$(grep -c "^${USERNAME}:" /etc/passwd)
-echo "TEST${USER_EXISTS}=${USERNAME}"
 if [ "${USER_EXISTS}" -eq 0 ]; then
   echo "用户不存在，添加用户"
   adduser --uid 1026 ${USERNAME}
