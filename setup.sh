@@ -18,7 +18,7 @@ else
 fi
 
 echo "创建命令快捷方式"
-profile=/etc/profile
+profile="/etc/profile"
 command="升级系统"
 if grep -Fxq ${command} ${profile}; then
   echo "${command}快捷命令已存在"
