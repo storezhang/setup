@@ -23,7 +23,7 @@ command="升级系统"
 if grep -Fxq ${command} ${profile}; then
   echo ${command}快捷命令已存在
 else
-  cat>>${profile}<<EOF
+  cat <<EOF >> ${profile}
 
 # ${command}
 alias upgrade=sudo apt update -y && sudo apt upgrade -y
@@ -34,7 +34,7 @@ command="安装软件"
 if grep -Fxq ${command} ${profile}; then
   echo ${command}快捷命令已存在
 else
-  cat>>${profile}<<EOF
+  cat <<EOF >> ${profile}
 
 # ${command}
 alias install=sudo apt install -y
@@ -45,7 +45,7 @@ command="查看Docker日志"
 if grep -Fxq ${command} ${profile}; then
   echo ${command}快捷命令已存在
 else
-  cat>>${profile}<<EOF
+  cat <<EOF >> ${profile}
 
 # ${command}
 alias dl=sudo docker logs -f
@@ -56,7 +56,7 @@ command="连接Docker容器"
 if grep -Fxq ${command} ${profile}; then
   echo ${command}快捷命令已存在
 else
-  cat>>${profile}<<EOF
+  cat <<EOF >> ${profile}
 
 # ${command}
 alias di=di_script(){ sudo docker exec -it $1 /bin/bash; };di_script
