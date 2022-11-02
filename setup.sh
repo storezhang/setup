@@ -223,7 +223,6 @@ EOF
 fi
 
 
-echo "注销"
 if [ "${NEED_LOGOUT}" = true ]; then
   echo "注销当前Shell，使配置生效"
   logout
