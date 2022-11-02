@@ -1,20 +1,21 @@
 #!/bin/bash
 
-USERNAME=storezhang
+USERNAME="storezhang"
 NEED_LOGOUT=false
 
 # 取得Root权限
 sudo -i
 
 # 判断用户是否存在
-if id "${USERNAME}" >/dev/null 2>&1; then
-  echo "用户已存在，继续执行"
-else
-  echo "用户不存在，添加用户，请输入用户信息"
+USER_EXISTS=$(grep -c "^${USERNAME}:" /etc/passwd)
+if [ "${USER_EXISTS}" -eq 0 ]; then
+  echo "用户不存在，添加用户"
   adduser --uid 1026 ${USERNAME}
 
   echo "将用户添加到Sudo组"
   usermod -aG sudo ${USERNAME}
+else
+  echo "用户已存在，继续执行"
 fi
 
 echo "创建命令快捷方式"
@@ -140,7 +141,6 @@ fi
 
 
 echo "增加计划任务"
-
 CRON_TASK="自动关机"
 if crontab -l | grep -q "${CRON_TASK}"; then
   echo "任务${CRON_TASK}已存在"
