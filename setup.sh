@@ -27,7 +27,7 @@ else
   cat <<EOF >> ${profile}
 
 # ${command}
-alias upgrade=sudo apt update -y && sudo apt upgrade -y
+alias upgrade="sudo apt update -y && sudo apt upgrade -y"
 EOF
 fi
 
@@ -39,7 +39,7 @@ else
   cat <<EOF >> ${profile}
 
 # ${command}
-alias install=sudo apt install -y
+alias install="sudo apt install -y"
 EOF
 fi
 
@@ -51,7 +51,7 @@ else
   cat <<EOF >> ${profile}
 
 # ${command}
-alias dl=sudo docker logs -f
+alias dl="sudo docker logs -f"
 EOF
 fi
 
@@ -63,7 +63,7 @@ else
   cat <<EOF >> ${profile}
 
 # ${command}
-alias di=di_script(){ sudo docker exec -it $1 /bin/bash; };di_script
+alias di="di_script(){ sudo docker exec -it $1 /bin/bash; };di_script"
 EOF
 fi
 
