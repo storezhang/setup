@@ -31,41 +31,6 @@ alias upgrade="sudo apt update -y && sudo apt upgrade -y"
 EOF
 fi
 
-SHORTCUT="安装软件"
-if grep -q ${SHORTCUT} "${PROFILE}"; then
-  echo "${SHORTCUT}快捷命令已存在"
-else
-  echo "增加${SHORTCUT}的快捷方式"
-  cat <<EOF >> "${PROFILE}"
-
-# ${SHORTCUT}
-alias install="sudo apt install -y"
-EOF
-fi
-
-SHORTCUT="查看Docker日志"
-if grep -q ${SHORTCUT} "${PROFILE}"; then
-  echo "${SHORTCUT}快捷命令已存在"
-else
-  echo "增加${SHORTCUT}的快捷方式"
-  cat <<EOF >> "${PROFILE}"
-
-# ${SHORTCUT}
-alias dl="sudo docker logs -f"
-EOF
-fi
-
-SHORTCUT="连接Docker容器"
-if grep -q ${SHORTCUT} "${PROFILE}"; then
-  echo "${SHORTCUT}快捷命令已存在"
-else
-  echo "增加${SHORTCUT}的快捷方式"
-  cat <<EOF >> "${PROFILE}"
-
-# ${SHORTCUT}
-alias di="di_script(){ sudo docker exec -it $1 /bin/bash; };di_script"
-EOF
-fi
 
 
 echo "更新软件源"
