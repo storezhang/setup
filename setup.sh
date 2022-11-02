@@ -20,7 +20,7 @@ fi
 echo "创建命令快捷方式"
 PROFILE="/etc/profile"
 SHORTCUT="升级系统"
-if grep -q "${SHORTCUT}" "${PROFILE}"; then
+if grep -q ${SHORTCUT} "${PROFILE}"; then
   echo "${SHORTCUT}快捷命令已存在"
 else
   echo "增加${SHORTCUT}的快捷方式"
@@ -30,6 +30,9 @@ else
 alias upgrade="sudo apt update -y && sudo apt upgrade -y"
 EOF
 fi
+
+SHORTCUT="安装软件"
+grep -q ${SHORTCUT} "${PROFILE}"
 
 
 
