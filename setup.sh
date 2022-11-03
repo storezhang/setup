@@ -62,6 +62,18 @@ alias install="sudo apt install -y"
 EOF
 fi
 
+SHORTCUT="清理系统"
+if grep -q ${SHORTCUT} "${PROFILE}"; then
+    echo "${SHORTCUT}快捷命令已存在"
+else
+    echo "增加${SHORTCUT}的快捷方式"
+    cat <<EOF >> "${PROFILE}"
+
+# ${SHORTCUT}
+alias purge="sudo apt autoremove -y && sudo apt purge -y"
+EOF
+fi
+
 SHORTCUT="查看Docker日志"
 if grep -q ${SHORTCUT} "${PROFILE}"; then
     echo "${SHORTCUT}快捷命令已存在"
