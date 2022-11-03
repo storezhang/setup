@@ -1,7 +1,13 @@
 #!/bin/bash
 
 # 取得Root权限
-sudo -i
+echo "当前账号是：$(whoami)"
+if [ "$UID" -eq 0 ]; then
+    echo "已经是ROOT账号，继续执行"
+  else
+    echo "正在升级成ROOT账号，请输入密码"
+    exec sudo "$0" "$@"
+fi
 
 USERNAME=storezhang
 NEED_LOGOUT=false
