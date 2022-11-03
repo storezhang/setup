@@ -76,11 +76,12 @@ EOF
 fi
 
 TIP_DOCKER_SUCCESS="用户已在Docker组内，不需要ROOT权限，继续执行"
-DOCKER_SCRIPT="script() { echo \"当前账号是：\$(whoami)\";"
-DOCKER_EXEC_SCRIPT="if getent group docker | grep -q '\b\$USER\b';"
-DOCKER_EXEC_SCRIPT="${DOCKER_EXEC_SCRIPT} then echo \"${TIP_DOCKER_SUCCESS}\" && eval \"\${COMMAND}\";"
-DOCKER_EXEC_SCRIPT="${DOCKER_EXEC_SCRIPT} else echo \"${TIP_USE_ROOT}\" && eval \"sudo \${COMMAND}\"; fi;"
-DOCKER_EXEC_SCRIPT="${DOCKER_EXEC_SCRIPT} }; script"
+DOCKER_SCRIPT_START="script() {"
+DOCKER_SCRIPT="echo \"当前账号是：\$(whoami)\";"
+DOCKER_SCRIPT="${DOCKER_SCRIPT} if getent group docker | grep -q '\b\$USER\b';"
+DOCKER_SCRIPT="${DOCKER_SCRIPT} then echo \"${TIP_DOCKER_SUCCESS}\" && eval \"\${COMMAND}\";"
+DOCKER_SCRIPT="${DOCKER_SCRIPT} else echo \"${TIP_USE_ROOT}\" && eval \"sudo \${COMMAND}\"; fi;"
+DOCKER_SCRIPT_END="}; script"
 
 SHORTCUT="查看Docker日志"
 DOCKER_COMMAND="docker logs -f \"\$1\""
@@ -91,7 +92,7 @@ else
     cat <<EOF >> "${PROFILE}"
 
 # ${SHORTCUT}
-alias dl='${DOCKER_SCRIPT} COMMAND=${DOCKER_COMMAND}; ${DOCKER_EXEC_SCRIPT}'
+alias dl='${DOCKER_SCRIPT_START} COMMAND=${DOCKER_COMMAND}; ${DOCKER_SCRIPT} ${DOCKER_SCRIPT_END}'
 EOF
 fi
 
