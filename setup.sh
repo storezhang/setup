@@ -18,7 +18,7 @@ if [ "${USER_EXISTS}" -eq 0 ]; then
     echo "用户不存在，添加用户"
     adduser --uid 1026 ${USERNAME}
 
-    echo "将用户添加到Sudo组"
+    echo "将用户添加到ROOT组"
     usermod -aG sudo ${USERNAME}
 else
     echo "用户已存在，继续执行"
@@ -35,6 +35,18 @@ else
 
 # ${SHORTCUT}
 alias upgrade="sudo apt update -y && sudo apt upgrade -y"
+EOF
+fi
+
+SHORTCUT="更新源"
+if grep -q ${SHORTCUT} "${PROFILE}"; then
+    echo "${SHORTCUT}快捷命令已存在"
+else
+    echo "增加${SHORTCUT}的快捷方式"
+    cat <<EOF >> "${PROFILE}"
+
+# ${SHORTCUT}
+alias update="sudo apt update -y"
 EOF
 fi
 
