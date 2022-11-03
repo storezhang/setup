@@ -1,11 +1,12 @@
 #!/bin/bash
 
+TIP_USE_ROOT="正在升级成ROOT账号，请输入密码"
 # 取得Root权限
 echo "当前账号是：$(whoami)"
 if [ "$EUID" -eq 0 ]; then
     echo "已经是ROOT账号，继续执行"
 else
-    echo "正在升级成ROOT账号，请输入密码"
+    echo "${TIP_USE_ROOT}"
     exec sudo "$0" "$@"
 fi
 
@@ -74,15 +75,17 @@ alias purge='sudo apt autoremove -y && sudo apt purge -y'
 EOF
 fi
 
+TIP_DOCKER_SUCCESS="用户已在Docker组内，不需要ROOT权限，继续执行"
 SHORTCUT="查看Docker日志"
 if grep -q ${SHORTCUT} "${PROFILE}"; then
     echo "${SHORTCUT}快捷命令已存在"
 else
     echo "增加${SHORTCUT}的快捷方式"
+    COMMAND="docker logs -f \"\$1\""
     cat <<EOF >> "${PROFILE}"
 
 # ${SHORTCUT}
-alias dl='script() { COMMAND="docker logs -f "\$1""; echo "当前账号是：\$(whoami)"; if getent group docker | grep -q "\b\$USER\b"; then echo "用户已在Docker组内，不需要ROOT权限，继续执行" && eval "\$COMMAND"; else echo "正在升级成ROOT账号，请输入密码" && eval "sudo \$COMMAND"; fi; }; script'
+alias dl='script() { echo "当前账号是：\$(whoami)"; if getent group docker | grep -q "\b\$USER\b"; then echo "${TIP_DOCKER_SUCCESS}" && eval "\$$COMMAND"; else echo "${TIP_USE_ROOT}" && eval "sudo \$$COMMAND"; fi; }; script'
 EOF
 fi
 
