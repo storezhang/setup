@@ -34,7 +34,7 @@ else
     cat <<EOF >> "${PROFILE}"
 
 # ${SHORTCUT}
-alias upgrade="sudo apt update -y && sudo apt upgrade -y"
+alias upgrade='sudo apt update -y && sudo apt upgrade -y'
 EOF
 fi
 
@@ -46,7 +46,7 @@ else
     cat <<EOF >> "${PROFILE}"
 
 # ${SHORTCUT}
-alias update="sudo apt update -y"
+alias update='sudo apt update -y'
 EOF
 fi
 
@@ -58,7 +58,7 @@ else
     cat <<EOF >> "${PROFILE}"
 
 # ${SHORTCUT}
-alias install="sudo apt install -y"
+alias install='sudo apt install -y'
 EOF
 fi
 
@@ -70,7 +70,7 @@ else
     cat <<EOF >> "${PROFILE}"
 
 # ${SHORTCUT}
-alias purge="sudo apt autoremove -y && sudo apt purge -y"
+alias purge='sudo apt autoremove -y && sudo apt purge -y'
 EOF
 fi
 
@@ -82,7 +82,7 @@ else
     cat <<EOF >> "${PROFILE}"
 
 # ${SHORTCUT}
-alias dl="sudo docker logs -f"
+alias dl='sudo docker logs -f'
 EOF
 fi
 
@@ -94,7 +94,19 @@ else
     cat <<EOF >> "${PROFILE}"
 
 # ${SHORTCUT}
-alias di="di_script(){ sudo docker exec -it $1 /bin/bash; };di_script"
+alias di='dis() { sudo docker exec --interactive --tty "$1" /bin/bash }; dis'
+EOF
+fi
+
+SHORTCUT="运行Docker容器终端"
+if grep -q ${SHORTCUT} "${PROFILE}"; then
+    echo "${SHORTCUT}快捷命令已存在"
+else
+    echo "增加${SHORTCUT}的快捷方式"
+    cat <<EOF >> "${PROFILE}"
+
+# ${SHORTCUT}
+alias dri='sudo docker run --interactive --tty --rm --entrypoint /bin/bash'
 EOF
 fi
 
