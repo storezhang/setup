@@ -94,7 +94,7 @@ else
     cat <<EOF >> "${PROFILE}"
 
 # ${SHORTCUT}
-alias di='dis() { sudo docker exec --interactive --tty "$1" /bin/bash }; dis'
+alias di='script() { COMMAND="docker exec --interactive --tty "\$1" /bin/bash"; echo "当前账号是：\$(whoami)"; \$(if getent group docker | grep -q "\b\$USER\b"; then eval "\$COMMAND"; else echo "正在升级成ROOT账号，请输入密码"; eval "sudo \$COMMAND"; fi); }; script'
 EOF
 fi
 
@@ -106,7 +106,7 @@ else
     cat <<EOF >> "${PROFILE}"
 
 # ${SHORTCUT}
-alias drs='sudo docker run --interactive --tty --rm --entrypoint /bin/"$1"'
+alias drs='sudo docker run --interactive --tty --rm --entrypoint /bin/"$1" "$2"'
 EOF
 fi
 
