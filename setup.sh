@@ -106,7 +106,19 @@ else
     cat <<EOF >> "${PROFILE}"
 
 # ${SHORTCUT}
-alias dri='sudo docker run --interactive --tty --rm --entrypoint /bin/bash'
+alias drs='sudo docker run --interactive --tty --rm --entrypoint /bin/"$1"'
+EOF
+fi
+
+SHORTCUT="运行Docker容器Bash终端"
+if grep -q ${SHORTCUT} "${PROFILE}"; then
+    echo "${SHORTCUT}快捷命令已存在"
+else
+    echo "增加${SHORTCUT}的快捷方式"
+    cat <<EOF >> "${PROFILE}"
+
+# ${SHORTCUT}
+alias drb='sudo docker run --interactive --tty --rm --entrypoint /bin/bash'
 EOF
 fi
 
