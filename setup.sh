@@ -76,14 +76,14 @@ EOF
 fi
 
 TIP_DOCKER_SUCCESS="用户已在Docker组内，不需要ROOT权限，继续执行"
-DOCKER_SCRIPT="script() { echo '当前账号是：\$(whoami)';"
+DOCKER_SCRIPT="script() { echo \"当前账号是：\$(whoami)\";"
 DOCKER_EXEC_SCRIPT="if getent group docker | grep -q '\b\$USER\b';"
-DOCKER_EXEC_SCRIPT="${DOCKER_EXEC_SCRIPT} then echo '${TIP_DOCKER_SUCCESS}' && eval '\${COMMAND}';"
-DOCKER_EXEC_SCRIPT="${DOCKER_EXEC_SCRIPT} else echo '${TIP_USE_ROOT}' && eval 'sudo \${COMMAND}'; fi;"
+DOCKER_EXEC_SCRIPT="${DOCKER_EXEC_SCRIPT} then echo \"${TIP_DOCKER_SUCCESS}\" && eval \"\${COMMAND}\";"
+DOCKER_EXEC_SCRIPT="${DOCKER_EXEC_SCRIPT} else echo \"${TIP_USE_ROOT}\" && eval \"sudo \${COMMAND}\"; fi;"
 DOCKER_EXEC_SCRIPT="${DOCKER_EXEC_SCRIPT} }; script"
 
 SHORTCUT="查看Docker日志"
-DOCKER_COMMAND="docker logs -f '\$1'"
+DOCKER_COMMAND="docker logs -f \"\$1\""
 if grep -q ${SHORTCUT} "${PROFILE}"; then
     echo "${SHORTCUT}快捷命令已存在"
 else
