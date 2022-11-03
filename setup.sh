@@ -84,11 +84,11 @@ DOCKER_SCRIPT="${DOCKER_SCRIPT} else echo \"${TIP_USE_ROOT}\" && eval \"sudo \${
 DOCKER_SCRIPT_END="}; script"
 
 SHORTCUT="查看Docker日志"
-DOCKER_COMMAND="docker logs -f \"\$1\""
 if grep -q ${SHORTCUT} "${PROFILE}"; then
     echo "${SHORTCUT}快捷命令已存在"
 else
     echo "增加${SHORTCUT}的快捷方式"
+    DOCKER_COMMAND="docker logs -f \"\$1\""
     cat <<EOF >> "${PROFILE}"
 
 # ${SHORTCUT}
