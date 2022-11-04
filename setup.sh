@@ -1,12 +1,11 @@
 #!/bin/bash
 
-TIP_USE_ROOT="正在升级成ROOT账号，请输入密码"
 # 取得Root权限
 echo "当前账号是：$(whoami)"
 if [ "$EUID" -eq 0 ]; then
     echo "已经是ROOT账号，继续执行"
 else
-    echo "${TIP_USE_ROOT}"
+    echo "正在升级成ROOT账号，请输入密码"
     exec sudo "$0" "$@"
 fi
 
