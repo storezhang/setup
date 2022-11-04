@@ -100,10 +100,24 @@ if grep -q ${SHORTCUT} "${PROFILE}"; then
     echo "${SHORTCUT}快捷命令已存在"
 else
     echo "增加${SHORTCUT}的快捷方式"
+    DOCKER_COMMAND="docker exec --interactive --tty \"\$2\" /bin/\"$1\""
     cat <<EOF >> "${PROFILE}"
 
 # ${SHORTCUT}
-alias di='script() { COMMAND="docker exec --interactive --tty "\$1" /bin/bash"; echo "当前账号是：\$(whoami)"; if getent group docker | grep -q "\b\$USER\b"; then echo "用户已在Docker组内，不需要ROOT权限，继续执行" && eval "\$COMMAND"; else echo "正在升级成ROOT账号，请输入密码" && eval "sudo \$COMMAND"; fi; }; script'
+alias di='${DOCKER_SCRIPT_START} COMMAND=${DOCKER_COMMAND}; ${DOCKER_SCRIPT} ${DOCKER_SCRIPT_END}'
+EOF
+fi
+
+SHORTCUT="连接Docker容器Bash终端"
+if grep -q ${SHORTCUT} "${PROFILE}"; then
+    echo "${SHORTCUT}快捷命令已存在"
+else
+    echo "增加${SHORTCUT}的快捷方式"
+    DOCKER_COMMAND="docker exec --interactive --tty \"\$1\" /bin/bash"
+    cat <<EOF >> "${PROFILE}"
+
+# ${SHORTCUT}
+alias dib='${DOCKER_SCRIPT_START} COMMAND=${DOCKER_COMMAND}; ${DOCKER_SCRIPT} ${DOCKER_SCRIPT_END}'
 EOF
 fi
 
@@ -112,10 +126,11 @@ if grep -q ${SHORTCUT} "${PROFILE}"; then
     echo "${SHORTCUT}快捷命令已存在"
 else
     echo "增加${SHORTCUT}的快捷方式"
+    DOCKER_COMMAND="docker run --interactive --tty --rm --entrypoint /bin/\"\$1\" \"\$2\""
     cat <<EOF >> "${PROFILE}"
 
 # ${SHORTCUT}
-alias drs='script() { COMMAND="docker run --interactive --tty --rm --entrypoint /bin/"\$1" "\$2""; echo "当前账号是：\$(whoami)"; if getent group docker | grep -q "\b\$USER\b"; then echo "用户已在Docker组内，不需要ROOT权限，继续执行" && eval "\$COMMAND"; else echo "正在升级成ROOT账号，请输入密码" && eval "sudo \$COMMAND"; fi; }; script'
+alias drs='${DOCKER_SCRIPT_START} COMMAND=${DOCKER_COMMAND}; ${DOCKER_SCRIPT} ${DOCKER_SCRIPT_END}'
 EOF
 fi
 
@@ -124,10 +139,11 @@ if grep -q ${SHORTCUT} "${PROFILE}"; then
     echo "${SHORTCUT}快捷命令已存在"
 else
     echo "增加${SHORTCUT}的快捷方式"
+    DOCKER_COMMAND="docker run --interactive --tty --rm --entrypoint /bin/bash \"\$1\""
     cat <<EOF >> "${PROFILE}"
 
 # ${SHORTCUT}
-alias drb='script() { COMMAND="docker run --interactive --tty --rm --entrypoint /bin/bash "\$1""; echo "当前账号是：\$(whoami)"; if getent group docker | grep -q "\b\$USER\b"; then echo "用户已在Docker组内，不需要ROOT权限，继续执行" && eval "\$COMMAND"; else echo "正在升级成ROOT账号，请输入密码" && eval "sudo \$COMMAND"; fi; }; script'
+alias drb='${DOCKER_SCRIPT_START} COMMAND=${DOCKER_COMMAND}; ${DOCKER_SCRIPT} ${DOCKER_SCRIPT_END}'
 EOF
 fi
 
