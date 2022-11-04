@@ -76,7 +76,7 @@ fi
 
 DOCKER_SCRIPT_START="script() {"
 DOCKER_SCRIPT="echo \"当前账号是：\$(whoami)\";"
-DOCKER_SCRIPT="${DOCKER_SCRIPT} if getent group docker | grep -q '\b\$USER\b';"
+DOCKER_SCRIPT="${DOCKER_SCRIPT} if getent group docker | grep -q \"\b\${USER}\b\";"
 DOCKER_SCRIPT="${DOCKER_SCRIPT} then echo \"用户已在Docker组内，不需要ROOT权限，继续执行\" && eval \"\${COMMAND}\";"
 DOCKER_SCRIPT="${DOCKER_SCRIPT} else echo \"用户不在Docker组内，需要ROOT权限，请输入密码\" && eval \"sudo \${COMMAND}\"; fi;"
 DOCKER_SCRIPT_END="}; script"
