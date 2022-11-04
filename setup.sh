@@ -79,8 +79,8 @@ TIP_DOCKER_SUCCESS="用户已在Docker组内，不需要ROOT权限，继续执�
 DOCKER_SCRIPT_START="script() {"
 DOCKER_SCRIPT="echo \"当前账号是：\$(whoami)\";"
 DOCKER_SCRIPT="${DOCKER_SCRIPT} if getent group docker | grep -q '\b\$USER\b';"
-DOCKER_SCRIPT="${DOCKER_SCRIPT} then echo \"${TIP_DOCKER_SUCCESS}\" && eval \"\${COMMAND}\";"
-DOCKER_SCRIPT="${DOCKER_SCRIPT} else echo \"${TIP_USE_ROOT}\" && eval \"sudo \${COMMAND}\"; fi;"
+DOCKER_SCRIPT="${DOCKER_SCRIPT} then echo ${TIP_DOCKER_SUCCESS} && eval \"\${COMMAND}\";"
+DOCKER_SCRIPT="${DOCKER_SCRIPT} else echo ${TIP_USE_ROOT} && eval \"sudo \${COMMAND}\"; fi;"
 DOCKER_SCRIPT_END="}; script"
 
 SHORTCUT="查看Docker日志"
