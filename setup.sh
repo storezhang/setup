@@ -100,7 +100,7 @@ if grep -q ${SHORTCUT} "${PROFILE}"; then
     echo "${SHORTCUT}快捷命令已存在"
 else
     echo "增加${SHORTCUT}的快捷方式"
-    DOCKER_COMMAND="docker exec --interactive --tty \"\$2\" /bin/\"$1\""
+    DOCKER_COMMAND="docker exec --interactive --tty \"\$2\" /bin/\"\$1\""
     cat <<EOF >> "${PROFILE}"
 
 # ${SHORTCUT}
