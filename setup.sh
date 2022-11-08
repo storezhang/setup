@@ -9,8 +9,28 @@ else
     exec sudo "$0" "$@"
 fi
 
+
 USERNAME=storezhang
 NEED_LOGOUT=false
+
+
+export shutdown=false
+
+options=$(getopt -l "shutdown:" -o "s:" -a -- "$@")
+eval set -- "$options"
+
+while true; do
+    case "$1" in
+        -s|--shutdown)
+            export shutdown=true
+            ;;
+        --)
+            shift
+            break;;
+    esac
+shift
+done
+
 
 # 判断用户是否存在
 USER_EXISTS=$(grep -c "^${USERNAME}:" /etc/passwd)
@@ -222,7 +242,7 @@ echo "增加计划任务"
 CRON_TASK="自动关机"
 if crontab -l | grep -q "${CRON_TASK}"; then
     echo "任务${CRON_TASK}已存在"
-else
+elif [ "${shutdown}" = true ]; then
     echo "添加任务${CRON_TASK}"
     (crontab -l ; echo "") | crontab -
     (crontab -l ; echo "# ${CRON_TASK}") | crontab -
