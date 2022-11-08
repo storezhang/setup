@@ -32,6 +32,18 @@ shift
 done
 
 
+# 更新源
+sources="/etc/apt/sources.list"
+if grep -q "mirrors.aliyun.com" "${sources}"; then
+    echo "已是阿里云源，不用更换"
+else
+    echo "更换为阿里云镜像源"
+    sed -i 's/archive.ubuntu.com/mirrors.aliyun.com/g' ${sources}
+    sed -i 's/cn.archive.ubuntu.com/mirrors.aliyun.com/g' ${sources}
+    sed -i 's/security.ubuntu.com/mirrors.aliyun.com/g' ${sources}
+fi
+
+
 # 判断用户是否存在
 USER_EXISTS=$(grep -c "^${USERNAME}:" /etc/passwd)
 if [ "${USER_EXISTS}" -eq 0 ]; then
