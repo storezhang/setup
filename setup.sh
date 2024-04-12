@@ -201,10 +201,12 @@ else
     cat>/etc/docker/daemon.json<<EOF
 {
 	"registry-mirrors": [
-		"https://4lch7u25.mirror.aliyuncs.com",
-		"https://docker.mirrors.ustc.edu.cn",
-		"https://registry.docker-cn.com",
-		"https://hub-mirror.c.163.com"
+		"https://docker.nju.edu.cn",
+        "https://docker.m.daocloud.io",
+        "https://dockerproxy.com",
+        "https://mirror.iscas.ac.cn",
+        "https://docker.mirrors.sjtug.sjtu.edu.c",
+        "https://mirror.baidubce.com"
 	]
 }
 
