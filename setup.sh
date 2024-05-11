@@ -339,6 +339,8 @@ DNSStubListener=no
 EOF
 
     echo "重启域名解析服务"
+    rm -f /etc/resolv.conf
+    ln -s /run/systemd/resolve/resolv.conf /etc/resolv.conf
     systemctl restart systemd-resolved
 fi
 
