@@ -14,15 +14,19 @@ USERNAME=storezhang
 NEED_LOGOUT=false
 
 
-export shutdown=false
+SHUTDOWN=false
+DNS=false
 
-options=$(getopt -l "shutdown:" -o "s:" -a -- "$@")
+options=$(getopt -l "shutdown:dns:" -o "s:d:" -a -- "$@")
 eval set -- "$options"
 
 while true; do
     case "$1" in
         -s|--shutdown)
-            export shutdown=true
+            SHUTDOWN=true
+            ;;
+        -d|--dns)
+            DNS=true
             ;;
         --)
             shift
@@ -240,11 +244,11 @@ echo "增加计划任务"
 CRON_TASK="自动关机"
 if crontab -l | grep -q "${CRON_TASK}"; then
     echo "任务${CRON_TASK}已存在"
-elif [ "${shutdown}" = true ]; then
+elif [ "${SHUTDOWN}" = true ]; then
     echo "添加任务${CRON_TASK}"
     (crontab -l ; echo "") | crontab -
     (crontab -l ; echo "# ${CRON_TASK}") | crontab -
-    (crontab -l ; echo "59	00	*	*	*	/sbin/shutdown -h now") | crontab -
+    (crontab -l ; echo "59	00	*	*	*	/sbin/SHUTDOWN -h now") | crontab -
 fi
 
 CRON_TASK="自动更新系统"
@@ -254,7 +258,7 @@ else
     echo "添加任务${CRON_TASK}"
     (crontab -l ; echo "") | crontab -
     (crontab -l ; echo "# ${CRON_TASK}") | crontab -
-    (crontab -l ; echo "00	09	*	*	*	apt update -y && dpkg --configure -a && --apt upgrade -y") | crontab -
+    (crontab -l ; echo "00	09	*	*	*	apt update -y && dpkg --configure -a && apt upgrade -y") | crontab -
 fi
 
 CRON_TASK="自动清理系统"
@@ -320,6 +324,22 @@ EOF
 
     chmod 664 "${blankingFile}"
     systemctl enable enable-console-blanking.service
+fi
+
+
+echo "替换域名解析服务器"
+if [ "${DNS}" = true ]; then
+    resolvedDir=/etc/systemd/resolved.conf.d
+    mkdir --parents "${resolvedDir}"
+    cat>"${resolvedDir}/dns.conf"<<EOF
+[Resolve]
+DNS=127.0.0.1
+DNSStubListener=no
+
+EOF
+
+    echo "重启域名解析服务"
+    systemctl restart systemd-resolved
 fi
 
 
