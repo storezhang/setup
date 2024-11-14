@@ -23,9 +23,7 @@ sudo tee /etc/init/vnc.conf > /dev/null <<EOF
 start on login-session-start
 
 script 
-
 x11vnc -display :0 -auth /var/run/lightdm/root/:0 -forever -bg -o /var/log/vnc.log -rfbauth /etc/vnc/passwd.pass -rfbport 5900 
-
 end script
 EOF
 
