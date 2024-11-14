@@ -19,12 +19,28 @@ sudo mkdir -p /etc/vnc
 sudo x11vnc -storepasswd $password /etc/vnc/passwd.pass
 
 # 创建服务
-sudo tee /etc/init/vnc.conf > /dev/null <<EOF
-start on login-session-start
-
-script 
-x11vnc -display :0 -auth /var/run/lightdm/root/:0 -forever -bg -o /var/log/vnc.log -rfbauth /etc/vnc/passwd.pass -rfbport 5900 
-end script
+sudo tee /etc/systemd/system/vnc.service > /dev/null <<EOF
+[Unit]
+Description=VNC
+Requires=display-manager.service
+After=display-manager.service
+[Service]
+Type=simple
+ExecStart=/usr/bin/x11vnc -display :0 -auth /var/run/lightdm/root/:0 -forever -bg -o /var/log/vnc.log -rfbauth -rfbport 5900 
+ExecStop=/usr/bin/killall x11vnc
+[Install]
+WantedBy=multi-user.target
 EOF
 
 echo "服务文件写入完成！"
+
+# 刷新服务配置
+sudo systemctl daemon-reload
+
+# 启动服务
+sudo systemctl start vnc
+echo "启动成功！"
+
+# 设置服务为自启动
+sudo systemctl enable vnc
+echo "服务启动设置成功！"
