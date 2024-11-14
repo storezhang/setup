@@ -15,6 +15,7 @@ fi
 echo $password | sudo -S sudo apt update && sudo apt install x11vnc -y
 
 # 设置密码
+sudo mkdir -p /etc/vnc
 sudo x11vnc -storepasswd $password /etc/vnc/passwd.pass
 
 # 创建服务
