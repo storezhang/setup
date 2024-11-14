@@ -11,7 +11,7 @@ sudo x11vnc -storepasswd $password /etc/vnc/passwd.pass
 # 创建服务
 sudo tee /etc/systemd/system/vnc.service > /dev/null <<EOF
 [Unit]
-Description=Remote desktop service (VNC)
+Description=VNC
 Requires=display-manager.service
 After=display-manager.service
 
